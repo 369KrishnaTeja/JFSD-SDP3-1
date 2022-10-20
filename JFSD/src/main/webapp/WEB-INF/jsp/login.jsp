@@ -4,11 +4,11 @@
 <table>
     <tr>
         <td>Username:</td>
-        <td><form:input path="username"></form:input></td>
+        <td><input name="username"/></td>
     </tr>
     <tr>
         <td>Password:</td>
-        <td><form:input path="password"></form:input></td>
+        <td><input name="password" type="password"/></td>
     </tr>
     <tr>
         <td><input type="submit" value="Login"/></td>

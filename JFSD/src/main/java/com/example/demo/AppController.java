@@ -23,6 +23,8 @@ public class AppController {
 	@Autowired
 	Repository2 r1;
 	
+	User e;
+	Electricity t;
 	@GetMapping("/")
 	public String demo(Model m)
 	{
@@ -43,6 +45,7 @@ public class AppController {
 	public Electricity details(@ModelAttribute("k") Electricity k,Model m)
 	{
 		m.addAttribute("command",new Electricity());
+		t=k;
 		r1.save(k);
 		return k;
 	}
@@ -52,8 +55,15 @@ public class AppController {
 	public Electricity details1(Model m)
 	{
 		m.addAttribute("command",new User());
-		List<Electricity> w=r1.findAll();
-		return w.get(w.size()-1);
+		return t;
+	}
+	
+	@GetMapping("/details2")
+	@ResponseBody
+	public User details2(Model m)
+	{
+		m.addAttribute("command",new User());
+		return e;
 	}
 	
 	@GetMapping("/form")
@@ -68,6 +78,22 @@ public class AppController {
 	{
 		m.addAttribute("command",new User());
 		return "login";
+	}
+	
+	@GetMapping("/home")
+	public String home(Model m)
+	{
+		m.addAttribute("us",e.getUsername());
+		return "home";
+	}
+	
+	@GetMapping("/profile")
+	public String profile(Model m)
+	{
+		m.addAttribute("us",e.getUsername());
+		m.addAttribute("em",e.getEmail());
+		m.addAttribute("ph",e.getPhoneno());
+		return "profile";
 	}
 	
 	  @PostMapping("/insert")
@@ -87,7 +113,8 @@ public class AppController {
 			  User x=u.get(i);
 			  if(g.getUsername().equals(x.getUsername())&&g.getPassword().equals(x.getPassword()))
 			  {
-				  m.addAttribute("un",g.getUsername());
+				  m.addAttribute("us",g.getUsername());
+				  e=x;
 				  return "home";
 			  }
 		  }

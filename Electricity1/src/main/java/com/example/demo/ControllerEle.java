@@ -17,10 +17,12 @@ import org.springframework.http.ResponseEntity;
 public class ControllerEle
 {
 	@GetMapping("/ele")
-	public float calculate()
+	public String calculate()
 	{
 		ResponseEntity<Electricity> response=new RestTemplate().getForEntity("http://localhost:8080/details1/", Electricity.class);
+		ResponseEntity<User> response1=new RestTemplate().getForEntity("http://localhost:8080/details2/", User.class);
 		Electricity c1=response.getBody();
-		return c1.getHour()*c1.getTotalPower();
+		User c2=response1.getBody();
+		return "<h3>Username : </h3>"+c2.getUsername()+"<br>"+"<h3>Email : </h3>"+c2.getEmail()+"<br>"+"<h3>Phone No. : </h3>"+c2.getPhoneno()+"<br>"+"<h3>Total Bill : </h3>"+" Your Bill: "+(c1.getHour()*c1.getTotalPower()*6.15)/1000;
 	}
 }
